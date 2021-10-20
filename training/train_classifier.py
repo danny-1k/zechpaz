@@ -1,30 +1,31 @@
+import os
 import pandas as pd
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader,ConcatDataset
 from sklearn.model_selection import train_test_split
 
 from ..common.models import FC
 
-from .data import CaturData
+from .data import ChessData
 
 torch.manual_seed(42)
 
 
-df = pd.read_csv('chessData.csv')
-df.sample(frac=1)
+all_xys = os.listdir('chessdata/processed')
+allxys = zip([i for i in all_xys if 'X' in i],[i for i in all_xys if 'Y' in i])
 
-df.columns = ['X','Y']
+train,test = train_test_split(all_xys,train_size=.8,random_state=42)
 
-train,test = train_test_split(df,train_size=.8,random_state=42)
-
-train = CaturData(train)
-test = CaturData(test)
+train = ConcatDataset([ChessData(x,y) for x,y in train])
+test = ConcatDataset([ChessData(x,y) for x,y in test])
 
 trainloader = DataLoader(train, batch_size=128, shuffle=True)
 testloader = DataLoader(test, batch_size=128, shuffle=True)
+
+print('Go\'en the da\'a')
 
 
 net = FC()
