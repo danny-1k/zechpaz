@@ -1,0 +1,8 @@
+__pycache__
+chessdata/processed/
+chessdata/raw/
+chessdata/splitted/
+chessdata/data/txts/
+plots/
+plots/*
+test.py
