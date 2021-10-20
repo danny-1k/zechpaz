@@ -25,7 +25,7 @@ w = 0
 B = []
 W = []
 
-txt_dir = 'data/txts/'
+txt_dir = '../chessdata/txts/'
 
 bs = 0
 ws = 0
@@ -70,8 +70,8 @@ for file in os.listdir(txt_dir):
 
             X,Y = zip(*data)
 
-            np.save(f'data/processed/X_{num}', np.array(X))
-            np.save(f'data/processed/Y_{num}', np.array(Y))
+            np.save(f'../chessdata/processed/X_{num}', np.array(X))
+            np.save(f'../chessdata/processed/Y_{num}', np.array(Y))
 
             num+=1
             X = []
@@ -98,5 +98,5 @@ if len(B) != 0 and len(W) != 0:
 
     X,Y = zip(*data)
 
-    np.save(f'data/processed/X_{num}', np.array(X))
-    np.save(f'data/processed/Y_{num}', np.array(Y))
+    np.save(f'../chessdata/processed/X_{num}', np.array(X))
+    np.save(f'../chessdata/processed/Y_{num}', np.array(Y))
