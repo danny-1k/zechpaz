@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 
 class Model:
     def save_(self, f):
-        torch.save(self.state_dict(), os.path.join('../trained_models', f))
+        torch.save(self.state_dict(), os.path.join('trained_models', f))
 
     def load_(self, f):
-        self.load_state_dict(torch.load(os.path.join('../trained_models', f)))
+        self.load_state_dict(torch.load(os.path.join('trained_models', f)))
 
     def freeze_(self):
         for param in self.parameters():
