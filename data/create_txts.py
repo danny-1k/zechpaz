@@ -1,7 +1,7 @@
 import chess.pgn
 import os
 from tqdm import tqdm
-import data_utils
+from . import data_utils
 
 num = 0
 iter = 0
