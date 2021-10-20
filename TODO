@@ -1,0 +1,9 @@
+- Write function for unzipping .zip files [DONE]
+- Write function for downloading pgn files and storing in "/data/raw/*" [DONE]
+- Edit data generation functions to save in sequences (for lstm) [DONE]
+- Try generating for 200 samples and checking distribution
+- Model
+- Make train script usable on GPU
+- Upload to cloud servicee
+- Train
+- Eval
