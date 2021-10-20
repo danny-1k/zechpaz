@@ -6,8 +6,8 @@ import data_utils
 num = 0
 iter = 0
 
-path = 'data/splitted'
-to = 'data/txts'
+path = '../chessdata/splitted'
+to = '../chessdata/txts'
 
 pgn_dataf = open(f'{to}/pgn_data_{iter}.txt', 'w')
 
