@@ -5,7 +5,7 @@ import numpy as np
 
 import chess
 
-from data_utils import b_to_array
+from ..data.data_utils import b_to_array
 
 class AEData(Dataset):
     def __init__(self, x_dir):
