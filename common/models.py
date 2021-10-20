@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 
 class Model:
     def save_(self, f):
-        torch.save(self.state_dict(), os.path.join('trained_models', f))
+        torch.save(self.state_dict(), os.path.join('../trained_models', f))
 
     def load_(self, f):
-        self.load_state_dict(torch.load(os.path.join('trained_models', f)))
+        self.load_state_dict(torch.load(os.path.join('../trained_models', f)))
 
     def freeze_(self):
         for param in self.parameters():
@@ -78,52 +78,23 @@ class Model:
                 plt.plot(test_loss_over_time, label='test loss')
 
             plt.legend()
-            plt.savefig(os.path.join('plots', log_name))
+            plt.savefig(os.path.join('../plots', log_name))
             plt.close('all')
-
-
-class AE(nn.Module, Model):
-    def __init__(self):
-        super().__init__()
-        self.encoder = nn.Sequential(
-            nn.Linear(6*8*8, 256),
-            nn.ReLU(),
-            nn.Linear(256, 128),
-            nn.ReLU(),
-            nn.Linear(128, 64),
-        )
-
-        self.decoder = nn.Sequential(
-            nn.Linear(64, 128),
-            nn.ReLU(),
-            nn.Linear(128, 256),
-            nn.ReLU(),
-            nn.Linear(256, 6*8*8),
-            nn.Tanh(),
-
-        )
-
-    def forward(self, x):
-
-        x = self.encoder(x)
-        x = self.decoder(x)
-
-        return x
-
 
 class FC(nn.Module, Model):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(6*8*8,300),
-            nn.ELU(),
-            nn.Linear(300,200),
-            nn.ELU(),
-            nn.Linear(200,100),
-            nn.ELU(),
-            nn.Linear(100,50),
-            nn.ELU(),
-            nn.Linear(50,1),
+            nn.Linear(6*8*8,1024),
+            nn.LeakyReLU(),
+            nn.Linear(1024,2048),
+            nn.LeakyReLU(),
+            nn.Linear(2048,2048),
+            nn.LeakyReLU(),
+            nn.Linear(2048,512),
+            nn.LeakyReLU(),
+            nn.Linear(512,1),
+            nn.Sigmoid()
         )
 
     
