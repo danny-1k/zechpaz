@@ -85,13 +85,13 @@ class FC(nn.Module, Model):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(6*8*8,2048),
+            nn.Linear(6*8*8,1024),
             nn.Dropout(.6),
             nn.LeakyReLU(),
-            nn.Linear(2048,1024),
+            nn.Linear(1024,500),
             nn.Dropout(.6),
             nn.LeakyReLU(),
-            nn.Linear(1024,50),
+            nn.Linear(500,50),
             nn.Dropout(.6),
             nn.LeakyReLU(),
             nn.Linear(50,1),
