@@ -36,7 +36,6 @@ lossfn = nn.MSELoss()
 net.train_(
     optimizer=optimizer,
     lossfn=lossfn,
-    log_name='fc_loss.png',
     train_loader=trainloader,
     test_loader=testloader,
     epochs=500,
