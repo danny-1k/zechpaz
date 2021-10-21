@@ -87,13 +87,11 @@ class FC(nn.Module, Model):
         self.net = nn.Sequential(
             nn.Linear(6*8*8,1024),
             nn.LeakyReLU(),
-            nn.Linear(1024,2048),
+            nn.Linear(1024,100),
             nn.LeakyReLU(),
-            nn.Linear(2048,2048),
+            nn.Linear(100,50),
             nn.LeakyReLU(),
-            nn.Linear(2048,512),
-            nn.LeakyReLU(),
-            nn.Linear(512,1),
+            nn.Linear(50,1),
             nn.Sigmoid()
         )
 
