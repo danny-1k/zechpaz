@@ -39,7 +39,7 @@ net.train_(
     train_loader=trainloader,
     test_loader=testloader,
     epochs=500,
-    checkpoint_dir='trained_models/FC.pt',
-    plot_dir='plots/fc_loss.png'
+    checkpoint_dir='trained_models',
+    plot_dir='plots'
 )
 
