@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 import matplotlib.pyplot as plt
-path = 'data/processed'
+path = '../chessdata/processed'
 
 w,d,b = 0,0,0
 total = 0

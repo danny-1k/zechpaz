@@ -6,8 +6,8 @@ idx = 0
 
 max_num = 60_000
 
-in_dir = 'data/raw'
-out_dir = 'data/splitted'
+in_dir = '../chessdata/raw'
+out_dir = '../chessdata/splitted'
 
 for i in tqdm(os.listdir(in_dir)):
     if i.endswith('.pgn'):
@@ -17,7 +17,7 @@ for i in tqdm(os.listdir(in_dir)):
             try:
                 name = f"{game.headers['White']}_vs_{game.headers['Black']}".replace('?', '').replace('<', '').replace('>', '').replace(
                     ':', '').replace('"', '').replace('*', '').replace('|', '').replace(' ', '_').replace(',', '').replace('/', '') #windows shit
-                if name in os.listdir('data/splitted'):
+                if name in os.listdir('../chessdata/splitted'):
                     continue
                 out = open(os.path.join(out_dir, name+'.pgn'), 'w')
                 exporter = chess.pgn.FileExporter(out)

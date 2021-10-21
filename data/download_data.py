@@ -22,10 +22,10 @@ for i in tqdm(range(num)):
 
     if url.rsplit('/', 1)[1] not in os.listdir('../chessdata/raw'):
 
-        download_from_url(url, 'data/raw')
+        download_from_url(url, '../chessdata/raw')
     else:
         print(f'Already downloaded {url.rsplit("/", 1)[1]}')
 print('Unzipping PGN files')
-for f in tqdm(os.listdir('data/raw')):
+for f in tqdm(os.listdir('../chessdata/raw')):
     if '.zip' in f:
-        unzip_file('data/raw/'+f, 'data/raw', remove=True)
+        unzip_file('../chessdata/raw/'+f, 'data/raw', remove=True)
