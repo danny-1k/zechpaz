@@ -8,16 +8,16 @@ import matplotlib.pyplot as plt
 
 class Model:
     def save_(self, f):
-        torch.save(self.state_dict(), os.path.join('trained_models', f))
+        torch.save(self.state_dict(), f)
 
     def load_(self, f):
-        self.load_state_dict(torch.load(os.path.join('trained_models', f)))
+        self.load_state_dict(torch.load(f))
 
     def freeze_(self):
         for param in self.parameters():
             param.requires_grad_(False)
 
-    def train_(self, optimizer, lossfn, log_name, train_loader, test_loader=None, epochs=5):
+    def train_(self, optimizer, lossfn, train_loader,plot_dir,checkpoint_dir, test_loader=None, epochs=5):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         
         self.to(device)
@@ -63,12 +63,12 @@ class Model:
 
             if test_loader:
                 if test_loss_over_time[-1] < last_loss:
-                    self.save_(type(self).__name__ + '.pt')
+                    self.save_(os.path.join(checkpoint_dir,type(self).__name__ + '.pt'))
                     last_loss = test_loss_over_time[-1]
 
             else:
                 if train_loss_over_time[-1] < last_loss:
-                    self.save_(type(self).__name__ + '.pt')
+                    self.save_(os.path.join(checkpoint_dir,type(self).__name__ + '.pt'))
                     last_loss = train_loss_over_time[-1]
 
 
@@ -78,7 +78,7 @@ class Model:
                 plt.plot(test_loss_over_time, label='test loss')
 
             plt.legend()
-            plt.savefig(os.path.join('../plots', log_name))
+            plt.savefig(os.path.join(plot_dir, f'{type(self).__name__}_loss.png'))
             plt.close('all')
 
 class FC(nn.Module, Model):
