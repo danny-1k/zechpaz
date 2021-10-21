@@ -4,7 +4,7 @@ import zipfile
 import requests
 import numpy as np
 import matplotlib.pyplot as plt
-from data_utils import b_to_array
+from ..data.data_utils import b_to_array
 
 unicode_pieces = {
     'P': u'\u2659',
