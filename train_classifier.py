@@ -17,7 +17,7 @@ all_xys = os.listdir('chessdata/processed')
 
 all_xys = list(zip([i for i in all_xys if 'X' in i],[i for i in all_xys if 'Y' in i]))
 
-train,test = train_test_split(all_xys,train_size=.8,random_state=42)
+train,test = train_test_split(all_xys,train_size=.6,random_state=42)
 
 train = ConcatDataset([ChessData(x,y) for x,y in train])
 test = ConcatDataset([ChessData(x,y) for x,y in test])
