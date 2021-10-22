@@ -1,5 +1,4 @@
 import os
-import sys
 
 import torch
 import torch.nn as nn
@@ -7,13 +6,13 @@ import torch.optim as optim
 from torch.utils.data import DataLoader,ConcatDataset
 from sklearn.model_selection import train_test_split
 
-from common.models import FC
+from zechpaz.common.models import FC
 
-from training.data import ChessData
+from zechpaz.training.data import ChessData
 
 torch.manual_seed(42)
 
-all_xys = os.listdir('chessdata/processed')
+all_xys = os.listdir('zechpaz/chessdata/processed')
 
 all_xys = list(zip([i for i in all_xys if 'X' in i],[i for i in all_xys if 'Y' in i]))
 
@@ -39,7 +38,7 @@ net.train_(
     train_loader=trainloader,
     test_loader=testloader,
     epochs=500,
-    checkpoint_dir='trained_models',
-    plot_dir='plots'
+    checkpoint_dir='zechpaz/trained_models',
+    plot_dir='zechpaz/plots'
 )
 
