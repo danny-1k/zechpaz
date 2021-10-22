@@ -7,8 +7,8 @@ import numpy as np
 
 class ChessData(Dataset):
     def __init__(self, xdir,ydir):
-        self.x = np.load(os.path.join('chessdata/processed/',xdir),allow_pickle=True)
-        self.y = np.load(os.path.join('chessdata/processed/',ydir),allow_pickle=True)
+        self.x = np.load(os.path.join('zechpaz/chessdata/processed/',xdir),allow_pickle=True)
+        self.y = np.load(os.path.join('zechpaz/chessdata/processed/',ydir),allow_pickle=True)
 
     def __len__(self):
         return self.y.shape[0]
