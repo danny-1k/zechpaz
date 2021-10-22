@@ -46,7 +46,16 @@ while not board.is_game_over():
         clear()
 
         poss = search_positions(board)
-        board.push_san(lms[eval_pos(poss[-1],net,mode='min')])
+        try:
+            board.push_san(lms[eval_pos(poss[-1],net,mode='min')])
+        except IndexError:
+            if board.is_checkmate():
+                print('Checkmate by ',end='')
+                print('AI' if board.turn() == is_white else 'You')
+            else:
+                print('Jeu terminé')
+
+            print(f'{"Checkmate by " if board.ischeckmate() else "Game Over"}')
 
     else:
         lms = [board.san(i) for i in list(board.legal_moves)]
@@ -57,6 +66,18 @@ while not board.is_game_over():
         clear()
 
         poss = search_positions(board)
+
+        try:
+            board.push_san(lms[eval_pos(poss[-1],net,mode='min')])
+        except IndexError:
+            if board.is_checkmate():
+                print('Checkmate by ',end='')
+                print('AI' if board.turn() == is_white else 'You')
+            else:
+                print('Jeu terminé')
+
+            print(f'{"Checkmate by " if board.ischeckmate() else "Game Over"}')
+            
         board.push_san(lms[eval_pos(poss[-1],net,mode='max')])
 
         clear()
