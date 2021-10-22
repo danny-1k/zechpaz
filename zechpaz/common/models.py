@@ -55,11 +55,14 @@ class Model:
 
             train_loss = sum(batch_train_loss_over_time) / \
                 len(batch_train_loss_over_time)
-            test_loss = sum(batch_test_loss_over_time) / \
-                len(batch_test_loss_over_time)
+            
+            if test_loader:
+                test_loss = sum(batch_test_loss_over_time) / \
+                    len(batch_test_loss_over_time)
 
             train_loss_over_time.append(train_loss)
-            test_loss_over_time.append(test_loss)
+            if test_loader:
+                test_loss_over_time.append(test_loss)
 
             if test_loader:
                 if test_loss_over_time[-1] < last_loss:
@@ -85,16 +88,15 @@ class FC(nn.Module, Model):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(6*8*8,1000),
-            nn.Dropout(.9),
+            nn.Linear(6*8*8,2048),
             nn.ReLU(),
-            nn.Linear(1000,500),
-            nn.Dropout(.7),
+            nn.Linear(2048,1024),
             nn.ReLU(),
-            nn.Linear(500,100),
-            nn.Dropout(.6),
+            nn.Linear(1024,512),
             nn.ReLU(),
-            nn.Linear(100,1),
+            nn.Linear(512,64),
+            nn.ReLU(),
+            nn.Linear(64,1),
             nn.Sigmoid()
         )
 
