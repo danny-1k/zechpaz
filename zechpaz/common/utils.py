@@ -6,9 +6,7 @@ import requests
 import numpy as np
 import matplotlib.pyplot as plt
 
-sys.path.append('..')
-
-from data.data_utils import b_to_array
+from ..data.data_utils import b_to_array
 
 unicode_pieces = {
     'P': u'\u2659',
@@ -112,6 +110,7 @@ def eval_pos(lst, net,mode='min'):
         try:
             x = b_to_array(lst[i]).reshape(1, -1)
             y = net(torch.from_numpy(x).float())
+            print(y)
             lst[i] = y[0].item()
 
         except:
