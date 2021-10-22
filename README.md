@@ -1,8 +1,6 @@
-# Catur
+# Zechpaz
 
-**Catur** is a chess AI which uses a neural network as it's evaluation function
-
-**catur** is malay for chess
+**Zechpaz** is an attempt to make a chess AI that uses a neural network as it's evaluation function.
 
 # Getting started
 
@@ -10,6 +8,14 @@
 python play.py
 ```
 
+# Method
+The data is built on the idea that every move in a game of chess contibutes to the final outcome of the game(assuming every move is optimal).
+
+For every datapoint, the feature is an array of size (6,8,8) (6 for the number of pieces and 8,8 for the position of the pieces on the board ).
+
+The label is 1 if white wins and 0 if black wins.
+
+I found that adding draws created a huge data imbalance and made the model overfit on draws.
 
 # Training from scratch
 
@@ -37,10 +43,7 @@ You can check the distribution of the data with the `data/get_data_dist.py` scri
 
 
 # Improvements
-
-This method uses a supervised learning approach so it will only be as good as the data  and the features used.
-
-Reinforcement Learning techniques might be better for this kind of task.
-
-As the goal shifts from "learn a function to convert the board state to an evaluation" to "Learn a policy that makes you win your opponent"
-
+1. Convnets would be faster and prolly have better results.
+2. Reinforcement Learning
+3. Better features. There should be a better way of encoding the board than just a (6,8,8) matrix of 1s,0s and -1s.
+4. Sequence models for making predictions based on past state
