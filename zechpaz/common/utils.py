@@ -1,5 +1,4 @@
 import os 
-import sys
 import torch
 import zipfile
 import requests
@@ -106,37 +105,38 @@ def search_positions(board, depth=2):
 
 
 def eval_pos(lst, net,mode='min'):
-    for i in range(len(lst)):
-        try:
-            x = b_to_array(lst[i]).reshape(1, -1)
-            y = net(torch.from_numpy(x).float())
-            print(y)
-            lst[i] = y[0].item()
+    with torch.no_grad():
+        for i in range(len(lst)):
+            try:
+                x = b_to_array(lst[i]).reshape(1, -1)
+                y = net(torch.from_numpy(x).float())
+                print(y)
+                lst[i] = y[0].item()
 
-        except:
-            eval_pos(lst[i], net,mode=mode)
+            except:
+                eval_pos(lst[i], net,mode=mode)
 
-    if mode == 'min':
-        min = float('inf')
-        for term in lst:
-            if np.mean(term) < min:
-                min = np.mean(term)
-                index = lst.index(term)
-        try:
-            return index
-        except:
-            return len(lst)-1
-    
-    if mode == 'max':
-        max = float('-inf')
-        for term in lst:
-            if np.mean(term) > max:
-                max = np.mean(term)
-                index = lst.index(term)
-        try:
-            return index
-        except:
-            return len(lst)-1
+        if mode == 'min':
+            min = float('inf')
+            for term in lst:
+                if np.mean(term) < min:
+                    min = np.mean(term)
+                    index = lst.index(term)
+            try:
+                return index
+            except:
+                return len(lst)-1
+        
+        if mode == 'max':
+            max = float('-inf')
+            for term in lst:
+                if np.mean(term) > max:
+                    max = np.mean(term)
+                    index = lst.index(term)
+            try:
+                return index
+            except:
+                return len(lst)-1
 
 def unzip_file(f,dir,remove=False):
     with zipfile.ZipFile(f,'r') as zipf:
