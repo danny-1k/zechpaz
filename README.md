@@ -42,8 +42,8 @@ You can check the distribution of the data with the `data/get_data_dist.py` scri
 - Train the classifier -> `python train_classifier.py`
 
 
-# Improvements
-1. Convnets would be faster and prolly have better results.
-2. Reinforcement Learning
-3. Better features. There should be a better way of encoding the board than just a (6,8,8) matrix of 1s,0s and -1s.
-4. Sequence models for making predictions based on past state
+# What could be done to improve this
+- Convnets would be faster and probably have better results.
+- Reinforcement Learning
+- Better board representation.
+- Sequence models for making predictions based on past states (If done properly might remove the need for search algorithms)
