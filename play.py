@@ -2,8 +2,8 @@ import os
 import time
 import chess
 import argparse
-from common.models import FC
-from common.utils import search_positions,eval_pos,print_board
+from zechpaz.common.models import FC
+from zechpaz.common.utils import search_positions,eval_pos,print_board
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--color',help="color to play as. w or b ")
@@ -19,7 +19,7 @@ def clear():
         os.system('clear')
 
 net = FC()
-net.load_('trained_models/FC.pt')
+net.load_('zechpaz/trained_models/FC.pt')
 net.eval()
 
 board = chess.Board()
