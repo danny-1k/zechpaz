@@ -1,10 +1,14 @@
 import os 
+import sys
 import torch
 import zipfile
 import requests
 import numpy as np
 import matplotlib.pyplot as plt
-from ..data.data_utils import b_to_array
+
+sys.path.append('..')
+
+from data.data_utils import b_to_array
 
 unicode_pieces = {
     'P': u'\u2659',
