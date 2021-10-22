@@ -19,7 +19,7 @@ def clear():
         os.system('clear')
 
 net = FC()
-net.load_('FC.pt')
+net.load_('trained_models/FC.pt')
 net.eval()
 
 board = chess.Board()
