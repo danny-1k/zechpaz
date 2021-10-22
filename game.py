@@ -1,138 +1,61 @@
-import chess
-import numpy as np
-from models import FC
-
-from data_utils import b_to_array
-import copy
-
+import os
+import time
 import torch
+from zechpaz.common.utils import b_to_array,print_board,eval_pos,search_positions
 
-class Node:
-    def __init__(self,eval,branch=None,color=None):
-        self.branch = branch
-        self.color = color if branch == None else branch.color
-        self.eval = eval
-
-    def mean_eval(self):
-        if self.branch != None:
-            evals = []
-            for i in self.branch.children:
-                evals.append(i.eval)
-
-            eval = sum(evals)/len(evals)
-
-            return eval
-
-        else:
-            return self.eval
-
-class Branch:
-    def __init__(self,parent_node,color):
-        self.parent_node = parent_node
-        self.color = color
-        self.children = []
-
-    def addNode(self,node):
-        self.children.append(node)
-
-    def mean_eval(self):
-        return self.mean_eval()
-
-
-class Tree:
-    def __init__(self,start_color='w'):
-        self.start_color = start_color
-        self.branches = []
-
-    def addBranch(self,branch):
-        self.branches.append(branch)
-
-    def bestMove(self):
-        idx_dict = {}
-        for idx,depth in list(reversed(list(enumerate(self.branches)))):
-            print([i.eval for i in depth.children ])
-            scores = np.array([i.mean_eval() for i in depth.children])
-            if self.start_color == 'w':
-                if idx%2 == 0:
-                    idx = scores.argmax()
-                else:
-                    idx = scores.argmin()
-
-            else:
-                if idx%2 == 0:
-                    idx = scores.argmin()
-                else:
-                    idx = scores.argmax()
-
-            idx_dict[idx] = idx
-
-        
-        return idx_dict[0]
-
-
-
-
-class AI:
-    def __init__(self,net,f='FC.pt',color='b',depth=2):
+class Game:
+    def __init__(self,board,net,color='white'):
+        if color not in ['white','black']:
+            raise ValueError('color must be black or white')
+        self.board = board
         self.net = net
-        self.net.load_(f)
         self.color = color
-        self.depth = depth
+        self.ai_mode = 'max' if self.color == 'black' else 'min'
+        print(self.ai_mode)
 
+    def make_move_ai(self):
+        if self.board.turn == (self.color == 'black'):
 
-    def play(self,board):
-        #boards = [[board.copy()]]
+            legal_moves = [self.board.san(i) for i in list(self.board.legal_moves)]
 
-        game_tree = Tree(start_color=self.color)
-        eval = self.net(
-                torch.from_numpy(
-                    b_to_array(board).\
-                        reshape(1,-1)).float()\
-                            )[0].item()
-        start_node = Node(eval,color=self.color)
+            poss = search_positions(self.board)
 
-        start__branch = Branch(start_node,self.color)
+            try:
+                self.board.push_san(legal_moves[eval_pos(poss[-1],self.net,mode=self.ai_mode)])
+            
+            except IndexError:
 
-        game_tree.addBranch(start__branch)
+                if self.board.is_checkmate():
+                    print('AI checkmate')
 
+                else:
+                    print('Jeu terminé')
 
-        def create_branches(board,node,depth):
-            branch = Branch(node,color='bw'[board.turn])
+            return self.board.is_game_over()
 
-            if depth == 0:
-                for move in list(board.legal_moves):
-                    board.push(move)
-                    eval = self.net(
-                        torch.from_numpy(
-                            b_to_array(board).\
-                            reshape(1,-1)).float()\
-                                )[0].item()
+    def make_move_human(self):
+        if self.board.turn == (self.color == 'white'):
+            legal_moves = [self.board.san(i) for i in list(self.board.legal_moves)]
+            while True:
+                move = input('Move >_ ')
+                if move in legal_moves:
+                    self.board.push_san(move)
+                    break
 
-                    n = Node(eval,branch)
-                    branch.addNode(n)
-                    board.pop()
-            else:
-                for move in list(board.legal_moves):
-                    board.push(move)
-                    eval = self.net(
-                        torch.from_numpy(
-                            b_to_array(board).\
-                            reshape(1,-1)).float()\
-                                )[0].item()
+                print(legal_moves)
 
-                    n = Node(eval,branch)
-                    b = create_branches(board,n,depth-1)
-                    n = Node(eval,b)
-                    branch.addNode(n)
+            if self.board.is_checkmate():
+                print('AI checkmate')
+            
+            elif self.board.is_game_over():
+                print('Jeu terminé')
 
-                    board.pop()
+            
+            return self.board.is_game_over()
 
+    
+    def print_board(self):
+        if os.system('cls') == 1:
+            os.system('clear')
 
-            return branch
-
-
-        
-        game_tree.addBranch(create_branches(board,start_node,self.depth))
-
-        print(game_tree.bestMove())
-        print(game_tree.branches)
+        print_board(self.board,self.color=='black')
