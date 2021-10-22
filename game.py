@@ -4,21 +4,21 @@ import torch
 from zechpaz.common.utils import b_to_array,print_board,eval_pos,search_positions
 
 class Game:
-    def __init__(self,board,net,color='white'):
+    def __init__(self,board,net,color='white',depth=2):
         if color not in ['white','black']:
             raise ValueError('color must be black or white')
         self.board = board
         self.net = net
         self.color = color
         self.ai_mode = 'max' if self.color == 'black' else 'min'
-        print(self.ai_mode)
+        self.depth = depth
 
     def make_move_ai(self):
         if self.board.turn == (self.color == 'black'):
 
             legal_moves = [self.board.san(i) for i in list(self.board.legal_moves)]
 
-            poss = search_positions(self.board)
+            poss = search_positions(self.board,depth=self.depth)
 
             try:
                 self.board.push_san(legal_moves[eval_pos(poss[-1],self.net,mode=self.ai_mode)])
