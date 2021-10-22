@@ -21,8 +21,8 @@ all_xys = list(zip([i for i in all_xys if 'X' in i],[i for i in all_xys if 'Y' i
 train = ConcatDataset([ChessData(x,y) for x,y in all_xys])
 #test = ConcatDataset([ChessData(x,y) for x,y in test])
 
-trainloader = DataLoader(train, batch_size=16, shuffle=True)
-#testloader = DataLoader(test, batch_size=16, shuffle=True)
+trainloader = DataLoader(train, batch_size=128, shuffle=True)
+#testloader = DataLoader(test, batch_size=128, shuffle=True)
 
 print('Go\'en the da\'a')
 
@@ -36,7 +36,7 @@ net.train_(
     optimizer=optimizer,
     lossfn=lossfn,
     train_loader=trainloader,
-    epochs=500,
+    epochs=40,
     checkpoint_dir='zechpaz/trained_models',
     plot_dir='zechpaz/plots'
 )
