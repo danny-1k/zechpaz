@@ -1,6 +1,6 @@
 __pycache__
-chessdata/processed/
-chessdata/raw/
-chessdata/splitted/
-chessdata/txts/
-test.py
+zechpaz/chessdata/processed/
+zechpaz/chessdata/raw/
+zechpaz/chessdata/splitted/
+zechpaz/chessdata/txts/
+zechpaz/test.py
