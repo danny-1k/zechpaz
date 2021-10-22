@@ -110,12 +110,11 @@ def eval_pos(lst, net,mode='min'):
             try:
                 x = b_to_array(lst[i]).reshape(1, -1)
                 y = net(torch.from_numpy(x).float())
-                print(y)
                 lst[i] = y[0].item()
 
             except:
                 eval_pos(lst[i], net,mode=mode)
-
+        
         if mode == 'min':
             min = float('inf')
             for term in lst:
