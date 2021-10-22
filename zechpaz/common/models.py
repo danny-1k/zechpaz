@@ -88,15 +88,15 @@ class FC(nn.Module, Model):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(6*8*8,2048),
+            nn.Linear(6*8*8,5000),
             nn.ReLU(),
-            nn.Linear(2048,1024),
+            nn.Linear(5000,1000),
             nn.ReLU(),
-            nn.Linear(1024,512),
+            nn.Linear(1000,500),
             nn.ReLU(),
-            nn.Linear(512,64),
+            nn.Linear(500,50),
             nn.ReLU(),
-            nn.Linear(64,1),
+            nn.Linear(50,1),
             nn.Sigmoid()
         )
 
