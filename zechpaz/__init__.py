@@ -7,3 +7,6 @@ if 'plots' not in dirs:
 
 if 'trained_models' not in dirs:
     os.makedir('trained_models')
+
+if 'chessdata' not in dirs:
+    os.makedir('chessdata')
