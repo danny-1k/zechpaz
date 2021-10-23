@@ -20,8 +20,11 @@ game = Game(board,net,color)
 
 while True:
     game.print_board()
+    
     if game.make_move_human():
         break
+
+    game.print_board()
 
     if game.make_move_ai():
         break
