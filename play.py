@@ -16,7 +16,7 @@ net.eval()
 
 board = chess.Board()
 
-game = Game(board,net,color,3)
+game = Game(board,net,color)
 
 while True:
     game.print_board()
