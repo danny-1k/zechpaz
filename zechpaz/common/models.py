@@ -88,15 +88,15 @@ class FC(nn.Module, Model):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(6*8*8,5000),
-            nn.ReLU(),
-            nn.Linear(5000,1000),
+            nn.Linear(6*8*8,1000),
+            nn.Dropout(.9),
             nn.ReLU(),
             nn.Linear(1000,500),
+            nn.Dropout(.7),
             nn.ReLU(),
-            nn.Linear(500,50),
+            nn.Linear(500,100),
             nn.ReLU(),
-            nn.Linear(50,1),
+            nn.Linear(100,1),
             nn.Sigmoid()
         )
 
@@ -104,4 +104,3 @@ class FC(nn.Module, Model):
     def forward(self,x):
         x = self.net(x)
         return x
-        
