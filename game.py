@@ -53,6 +53,27 @@ class Game:
             
             return self.board.is_game_over()
 
+
+    def make_move_ai__(self):
+        mode = 'max' if self.board.turn else 'min'
+
+        legal_moves = [self.board.san(i) for i in list(self.board.legal_moves)]
+        poss = search_positions(self.board,depth=self.depth)
+
+        try:
+            self.board.push_san(legal_moves[eval_pos(poss[-1],self.net,mode=mode)])
+            
+        except IndexError:
+
+            if self.board.is_checkmate():
+                print('AI checkmate')
+
+            else:
+                print('Jeu terminé')
+
+        return self.board.is_game_over()
+
+
     
     def print_board(self):
         if os.system('cls') == 1:
