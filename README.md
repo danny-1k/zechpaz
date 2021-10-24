@@ -2,10 +2,23 @@
 
 **Zechpaz** is an attempt to make a chess AI that uses a neural network as it's evaluation function.
 
-# Getting started
+Obviously, It's stupid as f.
 
+what I mean by stupid is that it doesn't seem to have a goal.
+Though it can capture opponent pieces
+
+
+# Playing the shit
+
+for a human vs AI game
 ```
 python play.py
+```
+
+for an AI vs AI game
+
+```
+python play_self.py
 ```
 
 # Method
