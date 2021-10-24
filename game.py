@@ -66,7 +66,7 @@ class Game:
         except IndexError:
 
             if self.board.is_checkmate():
-                print('AI checkmate')
+                print(f'AI({"White" if self.board.turn else "Black"}) checkmate')
 
             else:
                 print('Jeu terminé')
