@@ -18,5 +18,9 @@ while True:
 
     game.print_board()
 
+    #input('Press Enter for next move')
+
     if game.make_move_ai__():
         break
+
+    #input('Press Enter for next move')
